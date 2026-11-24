@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout Code') {
+            steps {
+                // Use checkout with credentials ID (Replace 'your-github-credentials-id' with your actual Jenkins Credential ID)
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: 'refs/heads/main']],
+                    userRemoteConfigs: [[
+                        url: '',
+                        
+                    ]]
+                ])
+                echo "Code pulled successfully from GitHub!"
+            }
+        }
+        stage('Build Application') {
+            steps {
+                echo "Compiling code and resolving dependencies..."
+                sh 'sleep 3' 
+                echo "Build completed successfully!"
+            }
+        }
+    }
+}
